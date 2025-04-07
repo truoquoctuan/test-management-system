@@ -1,5 +1,6 @@
 package com.bigbird.tmsrepo.entity;
 
+import com.bigbird.tmsrepo.cmmn.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 

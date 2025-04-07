@@ -1,6 +1,6 @@
 package com.bigbird.tmsrepo.dto;
 
-import graphql.relay.PageInfo;
+import com.bigbird.tmsrepo.cmmn.base.PageInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

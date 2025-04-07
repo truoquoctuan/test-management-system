@@ -1,5 +1,6 @@
 package com.bigbird.tmsrepo.entity;
 
+import com.bigbird.tmsrepo.cmmn.base.BaseEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +17,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "`position`")
-public class Position extends BaseEntity{
+public class Position extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "position_id")

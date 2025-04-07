@@ -1,4 +1,4 @@
-package com.bigbird.tmsrepo.entity;
+package com.bigbird.tmsrepo.cmmn.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;

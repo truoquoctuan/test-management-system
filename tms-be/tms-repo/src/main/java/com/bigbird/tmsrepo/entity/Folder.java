@@ -1,5 +1,6 @@
 package com.bigbird.tmsrepo.entity;
 
+import com.bigbird.tmsrepo.cmmn.base.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
