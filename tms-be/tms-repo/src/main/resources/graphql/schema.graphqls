@@ -1,0 +1,363 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    #    Folder
+    getFolderById(id: ID!): Folder
+    getAllFoldersByTesPlanId(testPlanId: ID!, searchString: String, sort: String, page: Int, size: Int): FolderPage
+    getAllChildFoldersByUpperId(upperIds: [ID]): [FolderDTO]
+    getAllMemberCreatedTestCase(folderId: ID!, name: String, page: Int, size: Int): UserPage
+
+    #    TestCase
+    getAllTestCase(folderId: Int!, testCaseName: String, createdBys: [ID], labelIds: [Int], sorted: String, page: Int, size: Int) : TestCasePage
+    getTestCaseById(id: ID!): TestCase
+    getAllTestCaseByTestPlanIdWithSearch(testCaseId: ID, testCaseName: String, testPlanId: ID!, page: Int, size: Int): TestCasePage
+
+    #    Label
+    getAllLabel(testPlanId: Int!, labelName: String, labelTypes: [Int], page: Int, size: Int):LabelPage
+
+    #    test_plan
+    getAllTestPlan(userId: ID!, testPlanName: String, createdBys: [ID], status: Int, sorted: String, page: Int!, size: Int!) : TestPlanPage
+    getTestPlanById(testPlanId: ID!): TestPlanDTO
+    getCreator(userId: ID!, name: String, page: Int, size: Int): UserPage
+    getAllUserFromBZW(userId: ID!, name: String!):[User]
+    getRoleInTestPlan(userId: ID!, testPlanId: ID!):Int
+
+    #    member
+    getMembersByTestPlanId(testPlanId: ID!, name: String, sorted: String, page: Int!, size: Int!): MemberPage
+    getMembersByTestPlanIdInEdit(testPlanId: ID!, name: String): MemberPage
+
+    #    position
+    getPosition(page: Int!, size: Int!): PositionPage
+
+    #    notify
+    getAllNotifyByUserId(userId: ID!, page: Int!, size: Int!):NotifyPage
+    countNotifyByUserId(userId: ID!) : Int
+    getNotifySetting(userId: ID!, testPlanId: ID!) : String
+    getMailSetting(userId: ID!, testPlanId: ID!):String
+}
+
+type Mutation {
+    #    Folder
+    updateFolderById(input: UpdateFolderDTO): Folder
+    deleteFolderById(id: ID!): DeleteFolderDTO!
+    runFolder(ids: [ID!]!, status: Int!): DeleteFolderDTO!
+    createFolder(input: CreateFolderDTO): Folder
+
+    #    TestCase
+    createTestCase(input: CreateTestCaseDTO): TestCase
+    createTestCases(folderId: ID!, testCases: [CreateTestCaseDTO]!) : String
+    updateTestCaseById(input: TestCaseDTO): TestCase
+    deleteTestCaseById(ids: [ID!]): statusTestCaseDTO!
+    updateLabelInTestCase(labelId: ID, testCaseId: ID, flag: String): statusTestCaseDTO
+
+    #    Label
+    saveLabel(label: LabelInput): Label
+    deleteLabels(labelIds: [Int]): Boolean
+
+    #    test_plan
+    createTestPlan(testPlan: TestPlanInput!): TestPlanDTO
+    updateInfoTestPlan(testPlan: TestPlanInput!): TestPlanDTO
+    disableTestPlans(testPlans: [TestPlanInput]): [TestPlanDTO]
+    pinTestPlan(testPlanId: ID!, userId: ID!, isPin: Boolean!):TestPlanDTO
+
+    #    member
+    saveMemberTestPlan(testPlanId: ID!, members: [MemberInput]): [Member]
+    deleteMembersOnTestPlan(memberIds: [ID!]!):String
+
+    #    position
+    savePosition(position: PositionInput!):PositionDTO
+    deletePositions(positionIds: [ID]) : String
+
+    #    notify
+    markAsRead(notifyId: ID!, status: Boolean!):String
+    markAllRead(userId: ID!):String
+    disableNotify(notifyId: ID!, disable: Boolean!):String
+    disableAllNotify(userId: ID!): String
+    checkedAllNotify(userId: ID!):String
+    setNotifySetting(userId: ID!, testPlanId: ID!, notifySetting: String):String
+    setMailSetting(userId: ID!, testPlanId: ID!, mailSetting: String):String
+}
+
+type Folder {
+    folderId: ID
+    folderName: String
+    description: String
+    createdAt: String
+    updatedAt: String
+    createdBy: String
+    sortOrder: Int
+    upperId: Int
+    status: Int
+    testPlan: TestPlanDTO
+    userName: String
+    fullName: String
+}
+
+type User {
+    userID: ID
+    userName: String
+    fullName: String
+}
+
+type PageInfo {
+    totalPages: Int!
+    totalElements: Int!
+    currentPage: Int!
+    pageSize: Int!
+}
+
+type FolderPage {
+    folders: [FolderDTO]!
+    pageInfo: PageInfo!
+}
+
+type FolderDTO {
+    folderId: ID
+    folderName: String
+    description: String
+    createdAt: String
+    updatedAt: String
+    createdBy: String
+    sortOrder: Int
+    upperId: Int
+    status: Int
+    testPlanId: Int
+    userName: String
+    fullName: String
+    hasTestCase: Boolean
+}
+
+input UpdateFolderDTO {
+    folderId: ID
+    folderName: String
+    description: String
+}
+
+input CreateFolderDTO {
+    folderId: ID
+    folderName: String
+    description: String
+    createdAt: String
+    updatedAt: String
+    createdBy: String
+    sortOrder: Int
+    upperId: Int
+    status: Int
+    testPlanId: String
+}
+
+type DeleteFolderDTO {
+    isSuccess: Boolean!
+    message: String!
+}
+
+type TestCasePage{
+    testCases: [TestCase]
+    pageInfo: PageInfo
+}
+
+type LabelPage{
+    labels: [Label]
+    pageInfo: PageInfo
+}
+
+type TestCase{
+    testCaseId: ID
+    description: String
+    expectResult: String
+    priority: Int
+    status: Int
+    testCaseName: String
+    createdBy: String
+    createdAt: String
+    updatedAt: String
+    folderId: String
+    userName: String
+    fullName: String
+    labels: [TestCaseLabel]
+    labelsInfo: [TestCaseLabelInfo]
+    files: [FileDTO]
+    fileSeqs: String
+}
+
+type TestCaseDetail {
+    testCaseId: ID
+    testCaseName: String
+}
+
+type FileDTO {
+    fileSeq: ID
+    fileName: String
+    fileSize: String
+    groupId: String
+    saveDt: String
+    saveNm: String
+    createdAt: String
+    updatedAt: String
+}
+
+type TestCaseLabel {
+    testCaseLabelId: ID
+    labelId: String
+}
+
+type TestCaseLabelInfo {
+    labelId: ID
+    labelColor: String
+    labelName: String
+}
+
+type Label{
+    labelId: ID
+    labelName: String
+    labelColor: String
+    testPlanId: ID
+    testCaseId: Int
+    labelType: Int
+}
+
+input LabelInput{
+    labelId: ID
+    labelName: String
+    labelColor: String
+    testPlanId: ID
+    testCaseId: Int
+    labelType: Int
+}
+
+input TestCaseDTO {
+    testCaseId: ID
+    description: String
+    expectResult: String
+    priority: Int
+    status: Int
+    testCaseName: String
+    createdBy: String
+    folderId: String
+    labels: [TestCaseLabelInput]
+    fileSeqs: String
+}
+
+type statusTestCaseDTO {
+    isSuccess: Boolean!
+    message: String!
+}
+
+input CreateTestCaseDTO {
+    testCaseId: ID
+    description: String
+    expectResult: String
+    priority: Int
+    status: Int
+    testCaseName: String
+    createdBy: String
+    folderId: String
+    labels: [TestCaseLabelInput]
+    fileSeqs: String
+}
+
+input TestCaseLabelInput {
+    labelId: ID
+}
+
+type TestPlanPage{
+    testPlans: [TestPlanDTO]
+    pageInfo: PageInfo!
+}
+
+type MemberPage{
+    members: [Member]!
+    pageInfo: PageInfo!
+}
+
+type PositionPage{
+    positions: [PositionDTO]
+    pageInfo: PageInfo
+}
+
+type UserPage{
+    users: [User]
+    pageInfo: PageInfo
+}
+
+type TestPlanDTO {
+    testPlanId: ID
+    testPlanName: String
+    description: String
+    status: Int
+    startDate: String
+    endDate: String
+    createdAt: String
+    updatedAt: String
+    createdBy: ID
+    isPin: Boolean
+    userInfo: User
+}
+
+type Member {
+    memberId: ID
+    testPlanId: ID
+    userId: ID
+    addBy: ID
+    addedAt: String
+    roleTestPlan: Int
+    positions: [PositionDTO]
+    userInfo: User
+    adderInfo: User
+}
+
+type PositionDTO {
+    positionId: ID
+    positionName: String
+    description: String
+    createdAt: String
+    updatedAt: String
+}
+
+input TestPlanInput {
+    testPlanId: ID
+    testPlanName: String
+    description: String
+    startDate: String
+    endDate: String
+    status: Int
+    createdBy: ID
+    members: [MemberInput]
+    uploadKey: String
+}
+
+input MemberInput {
+    memberId: ID
+    testPlanId: ID
+    userId: ID
+    addBy: ID
+    roleTestPlan: Int
+    positions: [PositionInput]
+}
+
+input PositionInput {
+    positionId: ID
+    positionName: String
+    description: String
+    createdAt: String
+    updateAt: String
+}
+
+type Notify{
+    notifyId: ID
+    notifyContent: String
+    status: Boolean
+    disable: Boolean
+    link: String
+    senderId: ID
+    userId: ID
+    createdAt: String
+}
+
+type NotifyPage{
+    notifies: [Notify]
+    pageInfo: PageInfo
+}
