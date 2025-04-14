@@ -1,0 +1,20 @@
+package com.tms_run.socket;
+
+public class ResponseNotify {
+    private String content;
+
+    public ResponseNotify() {
+    }
+
+    public ResponseNotify(String content) {
+        this.content = content;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+}
