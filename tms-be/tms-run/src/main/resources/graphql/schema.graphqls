@@ -1,0 +1,357 @@
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+
+type Query {
+    #    Test result
+    getTestResultById(id: ID!, page: Int, size: Int): TestResultPage
+
+    #    Test case
+    getAllTestCase(folderId: ID!, searchString: String, createdBys: [ID], labelIds: [ID], resultStatus: [Int], sort: String, page: Int, size: Int) : TestCasePage
+
+    #    Folder
+    getAllFoldersRunningByTesPlanId(testPlanId: ID!, searchString: String, sort: String, page: Int, size: Int): FolderPage
+    getAllChildFoldersByUpperId(upperIds: [ID]): [Folder]
+
+    #    Comment
+    getAllComment(commentEntityId: ID!, commentType: Int!, page: Int!, size: Int!): CommentPage
+    getReplies(parentId: ID!, commentType: Int!, page: Int!, size: Int!): CommentNode
+
+    #    response
+    getCauseAndSolution(issuesId: ID): CauseSolutionDTO
+
+    #   Issues
+    getIssuesById(issuesId: ID!): Issues
+    getAllIssuesInTestPlan(input: IssuesFilter, sorted: String, page: Int, size: Int) : IssuesPage
+
+    #   Label
+    getAllLabelsByTestPlanId(testPlanId: ID!): [LabelDetail]
+    getAllLabelByLabelTypeAndEntityId(labelType: Int!, entityId: ID!, page: Int!, size: Int!): LabelPage
+
+}
+
+type Mutation {
+    #    Test result
+    createTestResult(input: TestResultDTO): TestResult
+
+    #    Comment
+    createComment(input: CommentDTO): Comment
+    updateComment(input: CommentDTO): Comment
+
+    #    response
+    saveCauseSolution(issuesId: ID, cause: String, solution: String): Boolean
+
+    #   Issues
+    createIssues(input: IssuesDTO): Boolean
+    updateIssuesStatus(issuesId: ID!, status: Int!, userId: ID!): Boolean
+    removeIssues(issuesIds: [ID!]): Boolean
+    modifyIssues(input: IssuesModifyDTO): Boolean
+    modifyAssigns(assignIds: String, issuesId: ID!, userId: ID!): Boolean
+    modifyTestCases(testCaseIds: String, issuesId: ID!): Boolean
+    modifyEndDate(endDate: String, issuesId: ID!): Boolean
+    modifyStartDate(startDate: String, issuesId: ID!): Boolean
+    modifyPriority(priority: Int, issuesId: ID!): Boolean
+
+    #   Label
+    createLabel(input: LabelDTO): LabelDetail
+    removeLabel(labelIds: [ID!]!): Boolean
+    updateLabel(input: LabelDTO, labelId: ID): LabelDetail
+    modifyLabelInIssues(labelIds: String, issuesId: ID!): Boolean
+
+}
+
+#type Subscription {
+#    createComment(input: CommentDTO): Comment
+#}
+
+input IssuesFilter {
+    testPlanId: ID!
+    issuesIds:[ID]
+    issuesName: String
+    assignIds: [ID]
+    testCaseIds: [ID]
+    dueDate: String
+    priorities: [Int]
+    tags: [ID]
+    status: [Int]
+    exactFilterMatch: Boolean
+}
+
+input IssuesModifyDTO {
+    issuesId: ID!
+    issuesName: String
+    status: Int
+    scope: String
+    description: String
+    note: String
+    uploadKey: String
+}
+
+type TestResult {
+    testResultId: ID
+    content: String
+    status: Int
+    userId: String
+    assignIds: String
+    testCaseId: String
+    uploadKey: String
+    fileSeqs: String
+}
+
+input TestResultDTO {
+    testResultId: ID
+    content: String
+    status: Int
+    userId: String
+    assignIds: String
+    testCaseId: String
+    uploadKey: String
+    fileSeqs: String
+}
+
+type TestResultDetail {
+    testResultId: ID
+    content: String
+    status: Int
+    userId: String
+    createFullName: String
+    createUserName: String
+    assignIds: String
+    assignFullName: String
+    assignUserName: String
+    users: [Users]
+    testCaseId: String
+    createdAt: String
+    updatedAt: String
+    files: [FileDTO]
+    fileSeqs: String
+}
+
+type LabelDetail {
+    labelId: ID
+    labelName: String
+    labelColor: String
+    labelType: Int
+    testPlanId: ID
+}
+
+input LabelDTO {
+    labelId: ID
+    labelName: String
+    labelColor: String
+    labelType: Int
+    testPlanId: ID
+}
+
+type FileDTO {
+    fileSeq: ID
+    fileName: String
+    fileSize: String
+    groupId: String
+    saveDt: String
+    saveNm: String
+    createdAt: String
+    updatedAt: String
+}
+
+type Folder {
+    folderId: ID
+    folderName: String
+    description: String
+    createdAt: String
+    updatedAt: String
+    createdBy: String
+    sortOrder: Int
+    upperId: Int
+    status: Int
+    testPlan: TestPlan
+    userName: String
+    fullName: String
+}
+
+type Issues {
+    issuesId: ID
+    issuesName: String
+    createdBy: ID
+    testPlan: TestPlan
+    labelsList: [LabelDetail]
+    priority: Int
+    status: Int
+    scope: String
+    startDate: String
+    endDate: String
+    description: String
+    note: String
+    createdAt: String
+    updatedAt: String
+    testCases: [TestCase]
+    users: [Users]
+    creator: Users
+}
+
+type IssuesDetail {
+    issuesId: ID
+    issuesName: String
+    createdBy: ID
+    testPlanId: ID
+    testCaseSelection: String
+    labels: String
+    priority: Int
+    status: Int
+    scope: String
+    startDate: String
+    endDate: String
+    description: String
+    note: String
+    createdAt: String
+    updatedAt: String
+    assignIds: String
+}
+
+type TestPlan {
+    testPlanId: ID
+}
+
+type FolderPage {
+    folders: [Folder]!
+    pageInfo: PageInfo!
+}
+
+type PageInfo {
+    totalPages: Int!
+    totalElements: Int!
+    currentPage: Int!
+    pageSize: Int!
+}
+
+type TestResultPage {
+    testResults: [TestResultDetail]
+    pageInfo: PageInfo
+}
+
+type TestCasePage {
+    testCases: [TestCase]
+    pageInfo: PageInfo
+}
+
+type TestCase {
+    testCaseId: ID
+    priority: Int
+    status: Int
+    testCaseName: String
+    createdBy: String
+    resultStatus: Int
+    createdAt: String
+    updatedAt: String
+    folderId: String
+    labelsInfo: [TestCaseLabelInfo]
+}
+
+type TestCaseLabelInfo {
+    labelId: ID
+    labelColor: String
+    labelName: String
+}
+
+type CommentPage {
+    comments: [Comment]
+    pageInfo: PageInfo
+}
+
+type Comment {
+    commentId: ID
+    content: String
+    userId: String
+    users: Users
+    userListId: String
+    userListIdInfo: [UserTagCommentInfo]
+    commentUpperId: ID
+    commentType: Int
+    commentEntityId: ID
+    totalReplies: Int
+    createdAt: String
+    updatedAt: String
+    userRepliedList: [Users]
+}
+
+type CommentNode{
+    commentDTO: Comment
+    replies: [CommentNode]
+    pageInfo: PageInfo
+}
+
+type UserTagCommentInfo {
+    userID: ID
+    fullName: String
+    userName: String
+}
+
+input CommentDTO {
+    commentId: ID
+    commentUpperId: ID
+    commentType: Int
+    commentEntityId: ID
+    content: String
+    userId: String
+    userListId: String
+}
+
+input IssuesDTO {
+    issuesId: ID
+    issuesName: String
+    testPlanId: ID
+    createdBy: ID
+    assignIds: String
+    labels: String
+    priority: Int
+    status: Int
+    scope: String
+    testCaseSelection: String
+    startDate: String
+    endDate: String
+    createdAt: String
+    updatedAt: String
+    description: String
+    note: String
+    uploadKey: String
+
+}
+
+input AttachFileDTO {
+    fileSeq: ID
+    fileName: String
+    fileSize: ID
+    groupId: String
+    saveDt: String
+    saveNm: String
+    createdAt: String
+    updatedAt: String
+}
+
+type Subscription {
+    newComment: Comment
+}
+
+type Users{
+    userID: ID
+    userName: String
+    fullName: String
+    email: String
+}
+
+type IssuesPage {
+    issues: [Issues]
+    pageInfo: PageInfo
+}
+
+type LabelPage {
+    labels: [LabelDetail]
+    pageInfo: PageInfo
+}
+
+type CauseSolutionDTO{
+    cause: String
+    solution: String
+}
