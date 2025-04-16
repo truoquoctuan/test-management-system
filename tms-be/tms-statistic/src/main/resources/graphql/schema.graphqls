@@ -1,0 +1,168 @@
+type Query{
+    getTotalElementByTestPlanId(testPlanId: ID):TotalElement
+    getTestCaseStatus(testPlanId: ID) : [TestCaseStatus]
+    getTestCasePriority(testPlanId: ID) : [TestCasePriority]
+    getTestCaseInFolder(folderId: ID, name:String, sorted:String, status: [Int], page: Int, size: Int) : TestCasePage
+    getAllFolderAndTestCaseResult(testPlanId: ID) : [Folder]
+    getTestCaseInTestPlan(testPlanId: ID!, page: Int, size: Int) : TestCasePage
+    generateCSV(testPlanId: ID!, uploadKey: String!, name: String!, chunk: Int!, chunks: Int!):File
+    getTotalFolderDashboard(userId: ID!): TotalFolderDashBoard
+    getTotalTestCaseDashboard(userId: ID!):TotalTestCaseDashBoard
+    getTestCaseStatusDashboard(userId: ID!) : [TestCaseStatus]
+    getTestCasePriorityDashboard(userId: ID!) : [TestCasePriority]
+    getToTalTestPlanDashboard(userId: ID!):TotalTestPlanDashBoard
+    getWidgetByUserId(userId: ID!):[Widget]
+    getAllTestCaseDetail(testCaseIds: [ID]!) : [TestCase]
+    getAllResultInTestCase(testCaseIds:[ID]!) : [ResponseResult]
+    getAllCommentInTestCase(testCaseIds:[ID]!) : [ResponseComment]
+    generateCSVIssues(testPlanId: ID!, uploadKey: String!, name: String!, chunk: Int!, chunks: Int!): File
+}
+
+type Mutation{
+    addWidget(userId: ID!, widgetCodes: [Int!]): String
+    deleteWidget(widgetIds: [ID!]): String
+}
+
+type PageInfo {
+    totalPages: Int!
+    totalElements: Int!
+    currentPage: Int!
+    pageSize: Int!
+}
+
+type ResponseResult{
+    id: ID
+    data: [TestResultDetail]
+}
+
+type ResponseComment{
+    id: ID
+    data: [Comment]
+}
+
+type TotalElement{
+    totalFolders: Int
+    totalTestCases: Int
+    testCasesWithResults: Int
+    testCasesWithoutResults: Int
+}
+
+type TestCaseStatus{
+    status: Int
+    count: Int
+}
+
+type TestCasePriority{
+    priority: Int
+    count: Int
+}
+
+type Users{
+    userID: ID
+    userName: String
+    fullName: String
+}
+
+type TestCaseLabelInfo{
+    labelId: ID
+    labelColor: String
+    labelName: String
+    labelType: Int
+}
+
+type TestCase {
+    testCaseId: ID
+    priority: Int
+    status: Int
+    testCaseName: String
+    createdBy: String
+    description: String
+    expectResult: String
+    resultStatus: Int
+    createdAt: String
+    updatedAt: String
+    folderId: ID
+    users: Users
+    labelsInfo: [TestCaseLabelInfo]
+    lastTestResult: TestResultDetail
+}
+
+type TestCasePage {
+    testCases: [TestCase]
+    pageInfo: PageInfo
+}
+
+type Folder{
+    folderId: ID
+    createdBy: ID
+    description: String
+    folderName: String
+    sortOrder: Int
+    upperId: Int
+    status: Int
+    testCases: [TestCase]
+}
+
+type File {
+    fileSeq: ID!
+    fileName: String
+    fileSize: String
+    groupId: String
+    saveDt: String
+    saveNm: String
+}
+
+type TotalFolderDashBoard{
+    totalFolder: Int
+    totalRanFolder: Int
+    totalStoppedFolder: Int
+}
+
+type TotalTestCaseDashBoard{
+    totalTestCase: Int
+    totalExecuteTestCase: Int
+    totalPendTestCase: Int
+}
+
+type TotalTestPlanDashBoard{
+    totalTestPlan: Int
+    totalActiveTestPlan: Int
+    totalArchiveTestPlan: Int
+}
+
+type Widget{
+    widgetId: ID
+    userId: ID
+    widgetCode: Int
+}
+
+type Comment {
+    commentId: ID
+    testCaseId: String
+    content: String
+    userId: String
+    creator: Users
+    userListId: String
+    createdAt: String
+    updatedAt: String
+}
+
+type TestResultDetail {
+    testResultId: ID
+    content: String
+    status: Int
+    userId: String
+    creator: Users
+    assignId: String
+    assignUsers: [Users]
+    testCaseId: String
+    createdAt: String
+    updatedAt: String
+    fileSeqs: String
+}
+
+input WidgetInput{
+    widgetId: ID
+    userId: ID
+    widgetCode: Int
+}
