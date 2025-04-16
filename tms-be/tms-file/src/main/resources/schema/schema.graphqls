@@ -1,0 +1,56 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    generateKey: KeyResponse!
+    getListFileByGroupId(id: String!): [File]
+    displayImg(seq: ID!): ImageResponse
+    getUserAvatar(groupId: String!) : String
+}
+
+type Mutation {
+    uploadFile(file: Upload, uploadKey: String!, name: String!, chunk: Int!, chunks: Int!): File
+    deleteFileBySeq(id: ID!): statusDTO!
+    downloadFile(id: ID!): FileDownloadResponse
+}
+
+type FileDownloadResponse {
+    contentType: String!
+    contentDisposition: String!
+    data: String!
+}
+
+type ImageResponse {
+    fileSeq: ID
+    fileName: String
+    contentType: String
+    base64Image: String
+}
+
+type File {
+    fileSeq: ID!
+    fileName: String
+    fileSize: String
+    groupId: String
+    saveDt: String
+    saveNm: String
+}
+
+type KeyResponse {
+    key: String!
+    message: String!
+}
+
+type statusDTO {
+    isSuccess: Boolean!
+    message: String!
+}
+
+type CauseSolutionDTO{
+    cause: String
+    solution: String
+}
+
+scalar Upload
