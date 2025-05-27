@@ -1,0 +1,28 @@
+@import "~react-perfect-scrollbar/dist/css/styles.css";
+
+.ps {
+    overflow: hidden !important;
+    touch-action: auto !important;
+}
+
+.ps__rail-x {
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0.1);
+    bottom: 0;
+}
+
+.ps__rail-y {
+    width: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    right: 0;
+}
+
+.ps__thumb-x {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 0;
+}
+
+.ps__thumb-y {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 0;
+}

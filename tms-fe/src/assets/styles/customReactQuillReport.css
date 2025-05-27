@@ -1,0 +1,24 @@
+.react-quill-report {
+  border-radius: 8px !important;
+}
+
+.react-quill-report .ql-container {
+  min-height: 200px;
+  overflow-y: auto;
+}
+
+.react-quill-report .ql-snow .ql-editor::before {
+  color: #999; /* Placeholder text color */
+  left: 15px; /* Adjust the horizontal position */
+  font-size: 14px;
+  font-style: normal !important;
+}
+
+.react-quill-report .ql-snow .ql-editor {
+  font-size: 14px;
+}
+
+.ql-align-center img {
+  display: block;
+  margin: 0 auto;
+}

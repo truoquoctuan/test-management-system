@@ -1,0 +1,98 @@
+@import "variables";
+@import "~react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
+// .custom-wrapper{}
+
+.custom-toolbar {
+    padding: 8px 16px;
+    border-radius: 0;
+    border: 1px solid $neutral-4;
+    border-bottom: 0;
+    display: flex;
+    justify-content: flex-start;
+    background: $neutral-7;
+    flex-wrap: wrap;
+    font-size: 16px;
+    -webkit-user-select: none;
+    user-select: none;
+    margin-bottom: 0;
+
+    .custom-inline,
+    .custom-text-align,
+    .rdw-image-wrapper,
+    .rdw-link-wrapper,
+    .custom-list,
+    .rdw-inline-wrapper {
+        margin-bottom: 0;
+        column-gap: 16px;
+
+        .rdw-option-wrapper {
+            min-width: 16px;
+            padding: 2px;
+        }
+    }
+
+    .rdw-option-wrapper {
+        width: 24px;
+        height: 24px;
+        margin: 0;
+        background-color: transparent;
+    }
+
+    .rdw-option-active {
+        background-color: $neutral-6;
+    }
+
+    .rdw-fontsize-wrapper {
+        border-right: 1.5px solid $neutral-4;
+
+        .rdw-fontsize-dropdown {
+            background-color: transparent;
+        }
+    }
+
+    .custom-text-align {
+        position: relative;
+        padding-right: 16px;
+
+        &::after {
+            content: "";
+            height: 16px;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            border-right: 1px solid $neutral-4;
+        }
+    }
+
+    .rdw-image-wrapper {
+        padding: 0 16px;
+    }
+
+    .rdw-link-wrapper {
+        padding-right: 16px;
+        &::after {
+            content: "";
+            height: 16px;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            border-right: 1px solid $neutral-4;
+        }
+    }
+
+    .custom-list {
+        padding-left: 16px;
+    }
+}
+
+.custom-editor {
+    height: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+    border: 1px solid $neutral-4;
+    padding: 8px 12px;
+    max-height: 228px;
+}
