@@ -1,0 +1,361 @@
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: 50px;
+    aspect-ratio: 1;
+    display: grid;
+  }
+  .loader::before,
+  .loader::after {    
+    content:"";
+    grid-area: 1/1;
+    --c:no-repeat radial-gradient(farthest-side,#25b09b 92%,#0000);
+    background: 
+      var(--c) 50%  0, 
+      var(--c) 50%  100%, 
+      var(--c) 100% 50%, 
+      var(--c) 0    50%;
+    background-size: 12px 12px;
+    animation: l12 1s infinite;
+  }
+  .loader::before {
+    margin: 4px;
+    filter: hue-rotate(45deg);
+    background-size: 8px 8px;
+    animation-timing-function: linear
+  }
+  
+  @keyframes l12 { 
+    100%{transform: rotate(.5turn)}
+  }
+
+  .custom-scroll-y {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .custom-scroll-y::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .custom-scroll-y::-webkit-scrollbar-track {
+    border-radius: 4px;
+    box-shadow: inset 0 0 0px #BDBDBD;
+    background:  #dddddd;
+
+  }
+
+  .custom-scroll-y::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #BDBDBD;
+  }
+
+  .custom-scroll-f {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .custom-scroll-f::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .custom-scroll-f::-webkit-scrollbar-track {
+    border-radius: 4px;
+    box-shadow: inset 0 0 0px #0066CC;
+    background:  #dddddd;
+
+  }
+
+  .custom-scroll-f::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #0066CC;
+  }
+
+
+  .folder-container {
+    position: relative;
+    padding-left: 20px;
+    margin-left: 10px;
+}
+
+.folder-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 1px solid #ccc;
+    height: 100%;
+}
+
+.folder-item {
+    position: relative;
+}
+
+.folder-item::before {
+    content: '';
+    position: absolute;
+    top: 12px; /* Adjust based on your design */
+    left: -20px; /* Adjust based on your design */
+    border-top: 1px solid #ccc;
+    width: 20px;
+}
+.reactQuillCustom .ql-editor {
+    font-size: 20px;
+    padding: 0px 0px;
+    color: #000000; /* Thay đổi kích thước chữ */
+}
+.reactQuillCustom .ql-container.ql-snow {
+    border: none;
+  }
+.reactQuillCustom .ql-toolbar.ql-snow {
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    position: absolute;
+    bottom: 0;
+    visibility: hidden;
+  }
+  .reactQuillCustom .ql-editor {
+    min-height: 40px;
+    max-height: 150px; /* Điều chỉnh chiều cao theo ý muốn */
+    overflow: hidden;
+    position: relative;
+}
+
+.reactQuillCustom .ql-editor::after {
+
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 10px;
+    background: #F4F4F4; /* Màu nền */
+}
+
+.react-quill-hidden-calendar .ql-editor{
+    padding: 0px 0px;
+    font-size: 14px;
+    color: #000000;
+  }
+  
+  .react-quill-hidden-calendar .ql-toolbar.ql-snow {
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    position: absolute;
+    bottom: 0;
+    visibility: hidden;
+  }
+  .react-quill-hidden-calendar .ql-container.ql-snow {
+    border: none;
+  }
+
+  .react-quill-hidden .ql-editor {
+    min-height: 40px;
+    max-height: 150px; /* Điều chỉnh chiều cao theo ý muốn */
+    overflow: hidden;
+    position: relative;
+}
+
+.react-quill-hidden .ql-editor::after {
+
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 10px;
+    background: #F4F4F4; /* Màu nền */
+}
+
+.react-quill-testplan .ql-toolbar.ql-snow {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    padding: 8px 30px;
+  }
+
+.react-quill-testplan {
+    border-radius: 8px !important;
+  }
+
+  .react-quill-testplan .ql-snow .ql-tooltip {
+    left: 4% !important;
+    margin: auto;
+  }
+  
+  .react-quill-testplan .ql-container {
+    min-height: 150px;
+    overflow-y: auto;
+  }
+  
+  .react-quill-testplan .ql-snow .ql-editor::before {
+    color: #999; /* Placeholder text color */
+    left: 15px; /* Adjust the horizontal position */
+    font-size: 14px;
+    font-style: normal !important;
+  }
+  
+  .react-quill-testplan .ql-snow .ql-editor {
+    font-size: 14px;
+    max-height: 600px;
+
+  }
+  
+  .ql-align-center img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  
+
+  .react-quill-comment {
+    border-radius: 8px !important;
+
+  }
+  
+  .react-quill-comment .ql-container {
+    overflow-y: auto;
+    border: none;
+
+  }
+  
+  .react-quill-comment .ql-snow .ql-editor::before {
+    color: #999; /* Placeholder text color */
+    left: 15px; /* Adjust the horizontal position */
+    font-size: 14px;
+    font-style: normal !important;
+
+
+  }
+  
+  .react-quill-comment .ql-snow .ql-editor {
+    font-size: 14px;
+    max-height: 400px;
+
+  }
+
+ 
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    z-index: 300;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: auto;
+    max-width: 200px; /* Adjust as needed */
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 2px 10px; /* Adjust as needed */
+    position: absolute;
+    z-index: 300;
+    bottom: 100%; /* Position the tooltip above the text */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 1s;
+    white-space: nowrap;
+}
+
+
+.react-quill-hidden-comment .ql-editor{
+    padding: 10px ;
+    font-size: 14px;
+  }
+.react-quill-hidden-comment .ql-toolbar.ql-snow {
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    position: absolute;
+    bottom: 0;
+    visibility: hidden;
+    border: 1px solid #ccc;
+  }
+  .react-quill-hidden-comment .ql-snow .ql-editor::before {
+    color: #999; /* Placeholder text color */
+    left: 15px; /* Adjust the horizontal position */
+    font-size: 14px;
+    font-style: normal !important;
+  }
+
+  .react-quill-hidden-comment .ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border-top: 1px solid #ccc !important;
+  }
+//   .react-quill-hidden-comment .ql-container.ql-snow {
+//     border: none;
+//   }
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.ql-editor li::before {
+    display: inline-block;
+    white-space: nowrap;
+    width: 1rem !important; 
+}
+.ql-editor ul {
+    padding: 0px ;
+}
+.ql-editor ol {
+    padding: 0px ;
+}
+.ql-editor .ql-indent-1{
+    padding-left: 1.5em !important;
+}
+.ql-editor .ql-indent-2{
+    padding-left: 3em !important;
+}
+.ql-editor .ql-indent-3{
+    padding-left: 4.5em !important;
+}
+.ql-editor .ql-indent-4{
+    padding-left: 6em !important;
+}
+.ql-editor .ql-indent-5{
+    padding-left: 7.5em !important;
+}
+.ql-editor .ql-indent-6{
+    padding-left: 9em !important;
+}
+.ql-editor .ql-indent-7{
+    padding-left: 10.5em !important;
+}
+.ql-editor .ql-indent-8{
+    padding-left: 12em !important;
+}
+.ql-editor .ql-indent-8{
+    padding-left: 13.5em !important;
+}
+.ql-editor .ql-indent-9{
+    padding-left: 15em !important;
+}
+
+
+.react-quill-testplan2 .ql-toolbar.ql-snow {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    padding: 8px 5px;
+  }
+
+.react-quill-testplan2 {
+    border-radius: 8px !important;
+  }
+
+  .react-quill-testplan2 .ql-snow .ql-tooltip {
+    left: 4% !important;
+    margin: auto;
+  }
+  
+  .react-quill-testplan2 .ql-container {
+    min-height: 150px;
+    overflow-y: auto;
+  }
+  
+  .react-quill-testplan2 .ql-snow .ql-editor::before {
+    color: #999; /* Placeholder text color */
+    left: 15px; /* Adjust the horizontal position */
+    font-size: 14px;
+    font-style: normal !important;
+  }
+  
+  .react-quill-testplan2 .ql-snow .ql-editor {
+    font-size: 14px;
+    max-height: 600px;
+
+  }

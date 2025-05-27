@@ -1,0 +1,78 @@
+// Fading entrances
+// fadeInDown
+@-webkit-keyframes fadeInDown_2 {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -50%, 0);
+        transform: translate3d(0, -50%, 0);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+@keyframes fadeInDown_2 {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -50%, 0);
+        transform: translate3d(0, -50%, 0);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+.animate__fadeInDown__2 {
+    -webkit-animation-name: fadeInDown_2;
+    animation-name: fadeInDown_2;
+}
+
+// Fading exits
+// fadeOutDown
+@-webkit-keyframes fadeOutDown_2 {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 50%, 0);
+    }
+}
+@keyframes fadeOutDown_2 {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 50%, 0);
+    }
+}
+.animate__fadeOutDown__2 {
+    -webkit-animation-name: fadeOutDown_2;
+    animation-name: fadeOutDown_2;
+}
+
+.loader {
+    width: 1px; /* Giảm kích thước chiều rộng */
+    padding: 1.5px; /* Giảm padding để thu nhỏ */
+    aspect-ratio: 0.2;
+    border-radius: 50%;
+    background: #0066cc;
+    --_m: 
+      conic-gradient(#0000 5%,#000),
+      linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+            mask: var(--_m);
+    -webkit-mask-composite: source-out;
+            mask-composite: subtract;
+    animation: l3 1s infinite linear;
+}
+@keyframes l3 {to {transform: rotate(1turn)}}
